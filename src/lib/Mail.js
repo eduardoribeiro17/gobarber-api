@@ -7,6 +7,7 @@ import mailConfig from '../config/mail';
 class Mail {
   constructor() {
     const { host, port, secure, auth } = mailConfig;
+
     this.transporter = nodemailer.createTransport({
       host,
       port,
@@ -19,8 +20,9 @@ class Mail {
 
   configureTemplates() {
     const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails');
+
     this.transporter.use(
-      'compiler',
+      'compile',
       nodeMailHandleBars({
         viewEngine: expressHandleBars.create({
           layoutsDir: resolve(viewPath, 'layouts'),
