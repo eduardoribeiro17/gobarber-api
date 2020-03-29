@@ -22,10 +22,18 @@ class NotificationController {
   }
 
   async update(req, res) {
-    const notification = await Notification.findOneAndUpdate(
+    console.log('chamou', req.params.id);
+    const notification = await Notification.findByIdAndUpdate(
       req.params.id,
       { read: true },
-      { new: true }
+      { new: true },
+      (err, doc) => {
+        if (err) {
+          console.log('Something wrong when updating data!');
+        }
+
+        console.log(doc);
+      }
     );
 
     return res.json(notification);
